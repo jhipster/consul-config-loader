@@ -13,7 +13,7 @@ services:
         image: pbesson/consul-config-loader
         network_mode: "host"
         volumes:
-            - ./config/:/config
+            - ../config/:/config
         environment:
             - CONFIG_MODE=filesystem
             - INIT_SLEEP_SECONDS=5
