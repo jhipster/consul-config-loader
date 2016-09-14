@@ -1,11 +1,10 @@
 #!/bin/bash
 # To use outside of docker, set the following environment variables
-# export INIT_SLEEP_SECONDS=0;export CONFIG_MODE=filesystem;export CONFIG_DIR=central-config;export CONSUL_URL=localhost;export CONSUL_PORT=8500
+# export INIT_SLEEP_SECONDS=0;export CONFIG_MODE=filesystem;export CONFIG_DIR=config/;export CONSUL_URL=localhost;export CONSUL_PORT=8500
 sleep $INIT_SLEEP_SECONDS
 
 echo "----------------------------------------------------------------------
     Starting Consul Config Loader in $CONFIG_MODE mode"
-
 
 function loadPropertiesFilesIntoConsul {
   for file in $CONFIG_DIR/*.yml
@@ -21,7 +20,7 @@ function loadPropertiesFilesIntoConsul {
 if [[ "$CONFIG_MODE" == "filesystem" ]]; then
 	echo "----------------------------------------------------------------------
     Loading YAML config files in Consul K/V Store from the filesystem
-    Add or edit properties files in 'consul-config/' to have them
+    Add or edit properties files in '$CONFIG_DIR' to have them
     automatically reloaded into Consul
     Consul UI: http://$CONSUL_URL:$CONSUL_PORT/ui/#/dc1/kv/config/
 ----------------------------------------------------------------------"
