@@ -1,0 +1,17 @@
+{
+  "ID" : "to-change-in-production-client",
+  "Name": "jhipster-client-acl",
+  "Type": "client",
+  "Rules": "{
+    \"key\" : {
+      \"\": {
+        \"policy\": \"read\"
+      }
+    },
+    \"service\": {
+      \"\": {
+        \"policy\": \"write\"
+      }
+    }
+  }"
+}
