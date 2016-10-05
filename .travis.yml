@@ -1,0 +1,8 @@
+os:
+  - linux
+services:
+  - docker
+install:
+  - docker build -t jhipster/consul-config-loader:travis .
+script:
+  - docker images
