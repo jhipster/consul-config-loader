@@ -36,9 +36,18 @@ You will have to configure the `config/git2consul.json` file to have it load its
 
 Simply run `docker-compose -f quickstart/consul-loader-git.yml up` to start Consul and the agent.
 
-# ACL loading
+# ACL security
 
-to do...testing proper docker hub generation
+To maintain security for KV access and service discovery, this config loader expects consul running with ACL enabled, which leads to the presence of a master ACL token (refered to the loader by environment variable MASTER_ACL_TOKEN). This token is used, to **create** a client ACL token (provided by CLIENT_ACL_TOKEN variable), with a default policy and for writing config changes. 
+The default policy for the client ACL is to permit read to KV and write to service discovery. This policy can be changed using the [HTTP API for ACL](https://www.consul.io/docs/agent/http/acl.html) for custom policies. It is strongly recommended to use some random strings (like UUID) for the token values. MASTER_ACL_TOKEN and CLIENT_ACL_TOKEN must not be equal.
+
+To make JHipster or Spring Cloud applications registering to consul using the ACL, just add the client ACL token to bootstrap.yml:
+
+```
+consul:
+    token: my-client-acl-token
+
+```
 
 - [Spring Cloud Consul docs](https://cloud.spring.io/spring-cloud-consul/#spring-cloud-consul-config)
 - [Consul K/V store API docs](https://www.consul.io/docs/agent/http/kv.html)
