@@ -36,6 +36,10 @@ You will have to configure the `config/git2consul.json` file to have it load its
 
 Simply run `docker-compose -f quickstart/consul-loader-git.yml up` to start Consul and the agent.
 
+# ACL loading
+
+to do...testing proper docker hub generation
+
 - [Spring Cloud Consul docs](https://cloud.spring.io/spring-cloud-consul/#spring-cloud-consul-config)
 - [Consul K/V store API docs](https://www.consul.io/docs/agent/http/kv.html)
 - [Git2consul docs](https://github.com/Cimpress-MCP/git2consul)
