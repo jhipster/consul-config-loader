@@ -6,8 +6,8 @@ RUN apk --update add nodejs git openssh curl bash inotify-tools jq && \
     npm install -g git2consul@0.12.12 && \
     mkdir -p /etc/git2consul.d
 
-ADD load-config.sh /
-ADD jhi-acl.json /
+ADD /load-config.sh /
+ADD /jhi-acl.json /
 VOLUME /config
 
 ENV CONFIG_MODE=filesystem
