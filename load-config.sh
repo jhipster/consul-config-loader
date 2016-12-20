@@ -17,8 +17,8 @@ cat jhi-acl.json | sed s/to-change-in-production-client/$CLIENT_ACL_TOKEN/ | cur
 echo "----------------------------------------------------------------------
     Starting Consul Config Loader in $CONFIG_MODE mode"
 
-function loadPropertiesFilesIntoConsul {
-  for file in $CONFIG_DIR/*.yml
+function loadPropertiesFilesIntoConsul {  
+  for file in $CONFIG_DIR/*."${CONFIG_FORMAT:-yml}"
 	do
 	  filename=$(basename $file)
 	  app=${filename%%.*}
@@ -30,7 +30,7 @@ function loadPropertiesFilesIntoConsul {
 
 if [[ "$CONFIG_MODE" == "filesystem" ]]; then
 	echo "----------------------------------------------------------------------
-    Loading YAML config files in Consul K/V Store from the filesystem
+    Loading config files in Consul K/V Store from the filesystem
     Add or edit properties files in '$CONFIG_DIR' to have them
     automatically reloaded into Consul
     Consul UI: http://$CONSUL_URL:$CONSUL_PORT/ui/#/dc1/kv/config/
