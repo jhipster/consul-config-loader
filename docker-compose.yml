@@ -1,19 +1,18 @@
 version: '2'
 services:
     consul:
-        image: consul:v0.6.4
-        network_mode: "host"
+        image: consul:0.7.2
         ports:
             - 8300:8300
             - 8500:8500
             - 8600:8600
-        command: consul agent -dev -bind=127.0.0.1
+        command: consul agent -dev -ui -client 0.0.0.0
 
     consul-config-loader:
         build: .
-        network_mode: "host"
         volumes:
             - ./config/:/config
         environment:
             - CONFIG_MODE=filesystem
+            #- CONFIG_MODE=git
             - INIT_SLEEP_SECONDS=5
