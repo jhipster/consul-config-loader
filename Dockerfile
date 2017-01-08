@@ -1,4 +1,4 @@
-FROM alpine:3.4
+FROM alpine:3.5
 MAINTAINER Pierre Besson https://github.com/PierreBesson
 
 RUN apk --update add nodejs git openssh curl bash inotify-tools jq && \
