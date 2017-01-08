@@ -12,7 +12,7 @@ function loadPropertiesFilesIntoConsul {
 	do
 	  filename=$(basename $file)
 	  app=${filename%%.*}
-	  curl -sX PUT --data-binary @$file http://$CONSUL_URL:$CONSUL_PORT/v1/kv/config/$app/data  # > /dev/null
+	  curl  --output /dev/null -sX PUT --data-binary @$file http://$CONSUL_URL:$CONSUL_PORT/v1/kv/config/$app/data
 	done
   echo "   Consul Config reloaded"
 }
@@ -25,8 +25,16 @@ if [[ "$CONFIG_MODE" == "filesystem" ]]; then
     automatically reloaded into Consul
     Consul UI: http://$CONSUL_URL:$CONSUL_PORT/ui/#/dc1/kv/config/
 ----------------------------------------------------------------------"
-    # Load the files for the first time
-    loadPropertiesFilesIntoConsul
+
+  # Wait until the consul agent is up
+	until $(curl --output /dev/null --silent --fail http://$CONSUL_URL:$CONSUL_PORT/v1/health/state/critical); do
+    echo 'Trying to contact the consul agent...'
+		sleep 1
+	done
+
+  # Load the files for the first time
+  loadPropertiesFilesIntoConsul
+
 	# Reload the files when there is a file change
 	inotifywait -q -m --format '%f' -e close_write $CONFIG_DIR/ | while read
 	do
