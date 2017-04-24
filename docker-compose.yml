@@ -16,3 +16,4 @@ services:
             - CONFIG_MODE=filesystem
             #- CONFIG_MODE=git
             - INIT_SLEEP_SECONDS=5
+            - CONSUL_URL=consul
