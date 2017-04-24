@@ -36,10 +36,8 @@ if [[ "$CONFIG_MODE" == "filesystem" ]]; then
   loadPropertiesFilesIntoConsul
 
 	# Reload the files when there is a file change
-	inotifywait -q -m --format '%f' -e close_write $CONFIG_DIR/ | while read
-	do
-		loadPropertiesFilesIntoConsul
-	done
+    simplywatch -g "$CONFIG_DIR/**" -x "curl  --output /dev/null -sX PUT --data-binary @{{path}} http://$CONSUL_URL:$CONSUL_PORT/v1/kv/config/{{name}}/data && echo '   Consul Config reloaded'"
+
 fi
 
 if [[ "$CONFIG_MODE" == "git" ]]; then
