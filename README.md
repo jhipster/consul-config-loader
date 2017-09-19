@@ -1,6 +1,6 @@
 # Consul Config Loader
 
-[![Build Status][travis-image]][travis-url]
+[![Build Status][travis-image]][travis-url] [![Docker Pulls](https://img.shields.io/docker/pulls/jhipster/consul-config-loader.svg)](https://hub.docker.com/r/jhipster/consul-config-loader/)
 
 A small docker based tool to load Spring Boot property files into Consul K/V Store. It features hot-reload as well as filesystem and git support.
 
