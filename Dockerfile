@@ -8,6 +8,7 @@ RUN apk --update add nodejs git openssh curl bash inotify-tools jq && \
     mkdir -p /etc/git2consul.d
 
 ADD /load-config.sh /
+ADD /upload-consul-file.sh /
 VOLUME /config
 
 ENV CONFIG_MODE=filesystem
