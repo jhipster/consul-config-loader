@@ -1,7 +1,7 @@
-FROM alpine:3.5
+FROM alpine:3.12
 MAINTAINER Pierre Besson https://github.com/PierreBesson
 
-RUN apk --update add nodejs git openssh curl bash inotify-tools jq && \
+RUN apk --update add nodejs npm git openssh curl bash inotify-tools jq && \
     rm -rf /var/cache/apk/* && \
     npm install -g simplywatch@2.5.7 && \
     npm install -g git2consul@0.12.13 && \
