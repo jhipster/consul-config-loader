@@ -7,12 +7,10 @@ sleep $INIT_SLEEP_SECONDS
 echo "----------------------------------------------------------------------
     Starting Consul Config Loader in $CONFIG_MODE mode"
 
-function loadPropertiesFilesIntoConsul {  
+function loadPropertiesFilesIntoConsul {
   for file in $CONFIG_DIR/*."${CONFIG_FORMAT:-yml}"
 	do
-	  filename=$(basename $file)
-	  app=${filename%.*}
-	  curl  --output /dev/null -sX PUT --data-binary @$file http://$CONSUL_URL:$CONSUL_PORT/v1/kv/config/$app/data
+	  /upload-consul-file.sh $file
 	done
   echo "   Consul Config reloaded"
 }
@@ -36,7 +34,7 @@ if [[ "$CONFIG_MODE" == "filesystem" ]]; then
   loadPropertiesFilesIntoConsul
 
 	# Reload the files when there is a file change
-    simplywatch -g "$CONFIG_DIR/**" -x "curl  --output /dev/null -sX PUT --data-binary @{{path}} http://$CONSUL_URL:$CONSUL_PORT/v1/kv/config/{{name}}/data && echo '   Consul Config reloaded'"
+    simplywatch -g "$CONFIG_DIR/**" -x "/upload-consul-file.sh {{path}}"
 
 fi
 

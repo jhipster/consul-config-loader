@@ -2,7 +2,12 @@
 
 [![Azure DevOps Build Status][azure-devops-image]][azure-devops-url-main] [![Build Status][travis-image]][travis-url] [![Docker Pulls](https://img.shields.io/docker/pulls/jhipster/consul-config-loader.svg)](https://hub.docker.com/r/jhipster/consul-config-loader/)
 
-A small docker based tool to load Spring Boot property files into Consul K/V Store. It features hot-reload as well as filesystem and git support.
+A small docker based tool to load Spring Boot and/or Micronaut property files into Consul K/V Store. It features hot-reload as well as filesystem and git support.
+
+## Enabling Spring Boot and Micronaut support
+
+Both Spring Boot and Micronaut frameworks are supported, and by default only Spring Boot is enabled.
+To control the compatibility for each framework you should use the following environnement variables: `ENABLE_SPRING` and `ENABLE_MICRONAUT`, with values `true` or `false`.
 
 ## Filesystem mode
 

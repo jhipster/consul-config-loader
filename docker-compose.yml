@@ -17,3 +17,5 @@ services:
             #- CONFIG_MODE=git
             - INIT_SLEEP_SECONDS=5
             - CONSUL_URL=consul
+            - ENABLE_SPRING=true
+            - ENABLE_MICRONAUT=false
