@@ -1,5 +1,5 @@
 FROM alpine:3.12
-MAINTAINER Pierre Besson https://github.com/PierreBesson
+LABEL maintainer="Pierre Besson https://github.com/PierreBesson"
 
 RUN apk --update add nodejs npm git openssh curl bash inotify-tools jq && \
     rm -rf /var/cache/apk/* && \
