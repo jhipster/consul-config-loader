@@ -2,15 +2,15 @@
 
 # To use outside of docker, set the following environment variables
 # export INIT_SLEEP_SECONDS=0;export CONFIG_MODE=filesystem;export CONFIG_DIR=config/;export CONSUL_URL=localhost;export CONSUL_PORT=8500
-sleep $INIT_SLEEP_SECONDS
+sleep "$INIT_SLEEP_SECONDS"
 
 echo "----------------------------------------------------------------------
     Starting Consul Config Loader in $CONFIG_MODE mode"
 
 function loadPropertiesFilesIntoConsul {
-  for file in $CONFIG_DIR/*."${CONFIG_FORMAT:-yml}"
+  for file in "$CONFIG_DIR"/*."${CONFIG_FORMAT:-yml}"
 	do
-	  /upload-consul-file.sh $file
+	  /upload-consul-file.sh "$file"
 	done
   echo "   Consul Config reloaded"
 }
@@ -42,15 +42,15 @@ if [[ "$CONFIG_MODE" == "git" ]]; then
 	echo "----------------------------------------------------------------------
    Loading configuration in Consul K/V Store from a git repository using git2consul"
 	printf "      git_url          : "
-  cat $CONFIG_DIR/git2consul.json | jq  '.repos[0].url'
+  jq '.repos[0].url' < "$CONFIG_DIR"/git2consul.json
 	printf "      branch(es)       : "
-  cat $CONFIG_DIR/git2consul.json | jq  '.repos[0].branches[]'
+  jq '.repos[0].branches[]' < "$CONFIG_DIR"/git2consul.json
 	printf "      source_root      : "
-  cat $CONFIG_DIR/git2consul.json | jq  '.repos[0].source_root'
+  jq '.repos[0].source_root' < "$CONFIG_DIR"/git2consul.json
 	printf "      polling_interval : "
-  cat $CONFIG_DIR/git2consul.json | jq  '.repos[0].hooks[].interval'
+  jq '.repos[0].hooks[].interval' < "$CONFIG_DIR"/git2consul.json
 
 	echo "   Consul UI: http://$CONSUL_URL:$CONSUL_PORT/ui/#/dc1/kv/config/
 ----------------------------------------------------------------------"
-	git2consul --config-file $CONFIG_DIR/git2consul.json -e $CONSUL_URL -p $CONSUL_PORT
+	git2consul --config-file "$CONFIG_DIR"/git2consul.json -e "$CONSUL_URL" -p "$CONSUL_PORT"
 fi
