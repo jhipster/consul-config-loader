@@ -7,7 +7,7 @@ A small docker based tool to load Spring Boot and/or Micronaut property files in
 ## Enabling Spring Boot and Micronaut support
 
 Both Spring Boot and Micronaut frameworks are supported, and by default only Spring Boot is enabled.
-To control the compatibility for each framework you should use the following environnement variables: `ENABLE_SPRING` and `ENABLE_MICRONAUT`, with values `true` or `false`.
+To control the compatibility for each framework you should use the following environment variables: `ENABLE_SPRING` and `ENABLE_MICRONAUT`, with values `true` or `false`.
 
 ## Filesystem mode
 

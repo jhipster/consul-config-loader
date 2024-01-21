@@ -1,11 +1,11 @@
-version: '2'
+version: '3'
 services:
     consul:
-        image: consul:1.8.3
+        image: consul:1.15
         ports:
-            - 8300:8300
-            - 8500:8500
-            - 8600:8600
+            - "8300:8300"
+            - "8500:8500"
+            - "8600:8600"
         command: consul agent -dev -ui -client 0.0.0.0
 
     consul-config-loader:
